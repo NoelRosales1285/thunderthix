@@ -1,2 +1,0 @@
-# thunderthix
-Created with CodeSandbox
