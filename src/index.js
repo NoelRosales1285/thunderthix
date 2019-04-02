@@ -1,60 +1,67 @@
 import axios from "axios";
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      events: []
-    };
+  state = {
+    posts: [],
+    isLoading: true,
+    errors: null
+  };
+
+  getPosts() {
+    axios
+      .get("https://admin.thunderstage.com/barcode/events.json", {
+        params: {},
+        auth: {
+          username: "demo9",
+          password: "demodemo"
+        }
+      })
+      .then(response => {
+        this.setState({
+          posts: response.data,
+          isLoading: false
+        });
+      })
+      .catch(error => this.setState({ error, isLoading: false }));
   }
 
   componentDidMount() {
-    axios
-      .get(`https://admin.thunderstage.com/barcode/events.json`)
-      .then(respond => {
-        const events = respond.data;
-        this.setState({
-          events
-        });
-      });
+    this.getPosts();
   }
 
   render() {
+    const { isLoading, posts } = this.state;
     return (
-      <div>
-        <h1>Lists</h1>
+      <React.Fragment>
+        <h2>Events</h2>
         <div>
-          <ul>
-            {this.state.events.map((event, i) => (
-              <Messages key={i} message={event} />
-            ))}
-          </ul>
+          {!isLoading ? (
+            posts.map(post => {
+              const { id, name, seating_chart } = post;
+              return (
+                <div key={id}>
+                  <p>
+                    <strong>User ID:</strong> {id}
+                  </p>
+                  <p>
+                    <strong>Name:</strong> {name}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {seating_chart}
+                  </p>
+                  <hr />
+                </div>
+              );
+            })
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-class Messages extends React.Component {
-  render() {
-    const listStyle = {
-      marginBottom: 20
-    };
-    const nameStyle = {
-      fontWeight: 900,
-      fontSize: 20
-    };
-    return (
-      <div>
-        <li style={listStyle}>
-          <div style={nameStyle}>{this.props.message.name}</div>
-          <div>{this.props.message.seating_chart}</div>
-        </li>
-      </div>
-    );
-  }
-}
-
-render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
