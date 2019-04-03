@@ -11,20 +11,31 @@ class App extends React.Component {
 
   getPosts() {
     axios
-      .get("https://admin.thunderstage.com/barcode/events.json", {
-        params: {},
-        auth: {
-          username: "demo9",
-          password: "demodemo"
+      .get(
+        "http://admin.thunderstage.com/barcode/events.json",
+        {
+          headers: { Authorization: "Basic  ZGVtbzk6ZGVtb2RlbW8=" }
+        },
+        {
+          auth: {
+            username: "demo9",
+            password: "demodemo"
+          }
         }
-      })
+      )
       .then(response => {
-        this.setState({
-          posts: response.data,
-          isLoading: false
-        });
+        console.log("Data: ", response.data);
+        alert(response);
       })
-      .catch(error => this.setState({ error, isLoading: false }));
+      // .then(response => {
+      // this.setState({
+      // posts: response.data,
+      // isLoading: false
+      // });
+      //})
+      .catch(error => {
+        console.log(error.config);
+      });
   }
 
   componentDidMount() {
