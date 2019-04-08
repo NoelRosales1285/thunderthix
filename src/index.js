@@ -23,7 +23,7 @@ class App extends React.Component {
           posts: responseJson
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error.config));
     //axios
     //      .get(
     //      "http://admin.thunderstage.com/barcode/events.json",
