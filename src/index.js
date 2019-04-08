@@ -1,4 +1,4 @@
-import axios from "axios";
+//import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -10,32 +10,40 @@ class App extends React.Component {
   };
 
   getPosts() {
-    axios
-      .get(
-        "http://admin.thunderstage.com/barcode/events.json",
-        {
-          headers: { Authorization: "Basic  ZGVtbzk6ZGVtb2RlbW8=" }
-        },
-        {
-          auth: {
-            username: "demo9",
-            password: "demodemo"
-          }
-        }
-      )
-      .then(response => {
-        console.log("Data: ", response.data);
-        alert(response);
+    fetch("http://admin.thunderstage.com/barcode/events.json", {
+      method: "GET",
+      headers: {
+        Authorization: "Basic  ZGVtbzk6ZGVtb2RlbW8="
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          loading: false,
+          posts: responseJson
+        });
       })
-      // .then(response => {
-      // this.setState({
-      // posts: response.data,
-      // isLoading: false
-      // });
-      //})
-      .catch(error => {
-        console.log(error.config);
-      });
+      .catch(error => console.log(error));
+    //axios
+    //      .get(
+    //      "http://admin.thunderstage.com/barcode/events.json",
+    //       { withCredentials: true },
+    //       {
+    //         auth: {
+    //           username: "demo9",
+    //           password: "demodemo"
+    //         }
+    //       }
+    //    )
+    //     .then(response => {
+    //       this.setState({
+    //         posts: response.data,
+    //         isLoading: false
+    //       });
+    //})
+    //.catch(error => {
+    //  console.log(error.config);
+    //     });
   }
 
   componentDidMount() {
