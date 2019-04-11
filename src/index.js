@@ -19,7 +19,8 @@ class App extends React.Component {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "86400",
             "Access-Control-Allow-Headers":
-              "Content-Type, Authorization, X-Requested-With"
+              "Content-Type, Authorization, X-Requested-With",
+            Authorization: "Basic  ZGVtbzk6ZGVtb2RlbW8="
           }
         }
       )
