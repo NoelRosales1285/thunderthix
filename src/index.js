@@ -16,9 +16,6 @@ class App extends React.Component {
           "Content-Type": "application/json",
           Accept: "application/json",
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Max-Age": "86400",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization, X-Requested-With",
           Authorization: "Basic  ZGVtbzk6ZGVtb2RlbW8="
         }
       })
