@@ -11,19 +11,17 @@ class App extends React.Component {
 
   getPosts() {
     axios
-      .get(
-        "https://admin.thunderstage.com/barcode/events.json",
-        { crossdomain: true },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "86400",
-            "Access-Control-Allow-Headers":
-              "Content-Type, Authorization, X-Requested-With",
-            Authorization: "Basic  ZGVtbzk6ZGVtb2RlbW8="
-          }
+      .get("https://admin.thunderstage.com/barcode/events.json", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Max-Age": "86400",
+          "Access-Control-Allow-Headers":
+            "Content-Type, Authorization, X-Requested-With",
+          Authorization: "Basic  ZGVtbzk6ZGVtb2RlbW8="
         }
-      )
+      })
       .then(response => {
         this.setState({
           posts: response.data,
@@ -60,7 +58,7 @@ class App extends React.Component {
                     <strong>Name:</strong> {name}
                   </p>
                   <p>
-                    <strong>Email:</strong> {seating_chart}
+                    <strong>Seating Chart:</strong> {seating_chart}
                   </p>
                   <hr />
                 </div>
