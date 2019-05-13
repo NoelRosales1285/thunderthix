@@ -62,7 +62,10 @@ class App extends React.Component {
               );
             })
           ) : (
-            <p>Loading...</p>
+            <div id="loading">
+              <img src="_loading.gif" alt="loading" />
+              <p>loading...</p>
+            </div>
           )}
         </div>
       </React.Fragment>
